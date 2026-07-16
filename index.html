@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fiti — Find Someone as Fiti as You</title>
+<meta name="description" content="Fiti: swipe, match, and connect across Kenya and East Africa." />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div class="kitenge-strip"></div>
+
+<!-- ================= LANDING ================= -->
+<div id="landing" class="landing-when-app">
+  <nav class="nav">
+    <div class="brand">Fiti<span class="dot">.</span></div>
+    <div class="nav-actions">
+      <button class="btn btn-ghost" id="nav-login">Log in</button>
+      <button class="btn btn-primary" id="nav-signup">Join free</button>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div>
+      <div class="hero-eyebrow">✦ Nairobi-made, East Africa-ready</div>
+      <h1>Someone as <em>fiti</em> as you is one swipe away.</h1>
+      <p class="lede">
+        Fiti connects singles across Nairobi, Mombasa, Kisumu and beyond —
+        real profiles, mutual matches only, and conversations that start
+        with something in common, not a stranger's DM.
+      </p>
+      <div class="hero-cta">
+        <button class="btn btn-primary" id="hero-signup">Create your profile</button>
+        <button class="btn btn-ghost" id="hero-login">I already have an account</button>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><span class="num">47</span><span class="label">Counties reachable</span></div>
+        <div class="hero-stat"><span class="num">100%</span><span class="label">Mutual-match only</span></div>
+        <div class="hero-stat"><span class="num">0</span><span class="label">Spam DMs — ever</span></div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="demo-card back-2"></div>
+      <div class="demo-card back-1"></div>
+      <div class="demo-card front">
+        <div class="photo">
+          <span class="badge">Nairobi · 3 km away</span>
+        </div>
+        <div class="info">
+          <div class="name">Amani, 27</div>
+          <div class="meta">Loves nyama choma &amp; Sunday hikes</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div>Fiti. 18+ only.</div>
+    <div>Built for genuine connections across East Africa.</div>
+  </footer>
+</div>
+
+<!-- ================= AUTH MODAL ================= -->
+<div id="auth-modal" class="modal-overlay hidden">
+  <div class="modal" style="position: relative;">
+    <button class="modal-close" id="auth-close" aria-label="Close">&times;</button>
+    <div class="modal-body">
+      <h2 id="auth-title">Karibu back</h2>
+      <p class="sub" id="auth-sub">Log in to continue to Fiti.</p>
+
+      <form id="auth-form">
+        <div class="field">
+          <label for="auth-email">Email</label>
+          <input type="email" id="auth-email" required autocomplete="email" />
+        </div>
+        <div class="field" id="phone-field" style="display:none;">
+          <label for="auth-phone">Phone (optional)</label>
+          <input type="tel" id="auth-phone" placeholder="07XX XXX XXX" />
+        </div>
+        <div class="field">
+          <label for="auth-password">Password</label>
+          <input type="password" id="auth-password" required minlength="6" autocomplete="current-password" />
+        </div>
+        <div class="field" id="terms-field" style="display:none;">
+          <label style="display:flex; align-items:flex-start; gap:8px; text-transform:none; font-weight:500; color: var(--cream-dim); font-size:0.85rem;">
+            <input type="checkbox" id="auth-terms" style="width:auto; margin-top:3px;" />
+            <span>I confirm I'm 18 or older and agree to treat matches with respect — no harassment, no scams.</span>
+          </label>
+        </div>
+        <p class="form-error" id="auth-error"></p>
+        <button type="submit" class="btn btn-primary btn-block" id="auth-submit">Log in</button>
+      </form>
+
+      <div class="switch-mode">
+        <span id="switch-text">Don't have an account?</span>
+        <button id="switch-btn">Sign up</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= PROFILE SETUP MODAL ================= -->
+<div id="profile-setup-modal" class="modal-overlay hidden">
+  <div class="modal" style="max-width: 460px;">
+    <div class="modal-body">
+      <h2>Build your profile</h2>
+      <p class="sub">This is what other people will see. Be real — Fiti is for genuine connections.</p>
+      <form id="profile-setup-form" class="profile-form">
+        <div class="field-row">
+          <div class="field">
+            <label for="ps-name">Name</label>
+            <input type="text" id="ps-name" required />
+          </div>
+          <div class="field">
+            <label for="ps-age">Age</label>
+            <input type="number" id="ps-age" min="18" max="100" required />
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="ps-gender">I am a</label>
+            <select id="ps-gender" required>
+              <option value="woman">Woman</option>
+              <option value="man">Man</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="ps-interested">Show me</label>
+            <select id="ps-interested" required>
+              <option value="man">Men</option>
+              <option value="woman">Women</option>
+              <option value="everyone">Everyone</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="ps-facebook">Facebook username (required)</label>
+          <input type="text" id="ps-facebook" placeholder="e.g. jane.wanjiru.94" required />
+        </div>
+        <div class="field">
+          <label for="ps-county">County / City</label>
+          <input type="text" id="ps-county" placeholder="e.g. Nairobi" />
+        </div>
+        <div class="field">
+          <label for="ps-bio">Bio</label>
+          <textarea id="ps-bio" placeholder="A little about you..." maxlength="300"></textarea>
+        </div>
+        <div class="field">
+          <label for="ps-interests">Interests (comma separated)</label>
+          <input type="text" id="ps-interests" placeholder="hiking, music, nyama choma" />
+        </div>
+        <p class="form-error" id="profile-setup-error"></p>
+        <button type="submit" class="btn btn-primary btn-block">Save &amp; start swiping</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ================= MATCH MODAL (Moyo Meter) ================= -->
+<div id="match-modal" class="modal-overlay hidden">
+  <div class="modal match-modal">
+    <div class="modal-body">
+      <h2>It's a match! 🎉</h2>
+      <p class="sub" id="match-sub">You and <span id="match-name">someone</span> both said yes.</p>
+      <div class="moyo-meter">
+        <svg viewBox="0 0 120 120">
+          <circle cx="60" cy="60" r="52" fill="none" stroke="rgba(23,23,28,0.12)" stroke-width="8" />
+          <circle id="moyo-fill-path" class="moyo-fill"
+                  cx="60" cy="60" r="52" fill="none" stroke="#FF3E7D" stroke-width="8" stroke-linecap="round" />
+        </svg>
+        <div class="pct"><span id="moyo-pct">0%</span><span class="stamp-label">Fiti match</span></div>
+      </div>
+      <p class="sub" style="margin-bottom:20px;">Fiti Stamp compatibility score</p>
+      <div style="display:flex; gap:12px;">
+        <button class="btn btn-ghost btn-block" id="match-keep-swiping">Keep swiping</button>
+        <button class="btn btn-primary btn-block" id="match-say-hi">Say hi</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= PREMIUM MODAL ================= -->
+<div id="premium-modal" class="modal-overlay hidden">
+  <div class="modal" style="position: relative;">
+    <button class="modal-close" id="premium-close" aria-label="Close">&times;</button>
+    <div class="modal-body">
+      <h2>Go Premium</h2>
+      <p class="sub">One payment, <span id="premium-price">KSH 50</span>, unlocks everything: unlimited Random Connects and every match's contact info revealed automatically — no more per-match payments.</p>
+      <div class="field">
+        <label for="premium-phone">M-Pesa number</label>
+        <input type="tel" id="premium-phone" placeholder="07XX XXX XXX" />
+      </div>
+      <p class="form-error" id="premium-error"></p>
+      <p id="premium-waiting" class="hidden" style="font-size:0.85rem; color:var(--blue); margin:-6px 0 14px;">Check your phone and enter your M-Pesa PIN…</p>
+      <button class="btn btn-gold btn-block" id="premium-pay-btn">Pay &amp; unlock everything</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= APP SHELL ================= -->
+<div id="app-shell" class="app-shell">
+  <div class="app-nav">
+    <div class="brand">Fiti<span class="dot">.</span></div>
+    <div class="app-tabs">
+      <button class="app-tab active" data-tab="discover">Discover</button>
+      <button class="app-tab" data-tab="random">Random</button>
+      <button class="app-tab" data-tab="matches">Matches</button>
+      <button class="app-tab" data-tab="profile">Profile</button>
+    </div>
+    <div class="row" style="display:flex; align-items:center; gap:10px;">
+      <span id="premium-badge" class="hidden" style="background:var(--sun); color:var(--ink); font-weight:800; font-size:0.7rem; padding:4px 10px; border-radius:999px;">★ PREMIUM</span>
+      <button class="btn btn-gold btn-sm" id="upgrade-nav-btn">Go Premium</button>
+      <button class="btn btn-ghost btn-sm" id="logout-btn">Log out</button>
+    </div>
+  </div>
+
+  <main class="app-main">
+
+    <!-- Discover tab -->
+    <section id="tab-discover" class="tab-panel">
+      <div class="deck-wrap">
+        <div class="deck" id="deck"></div>
+        <div class="deck-actions">
+          <button class="pass-btn" id="pass-btn" aria-label="Pass">✕</button>
+          <button class="like-btn" id="like-btn" aria-label="Like">♥</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Random Connect tab (Ablo-style instant pairing) -->
+    <section id="tab-random" class="tab-panel hidden">
+      <div style="max-width:420px; margin:0 auto; text-align:center;">
+        <h2 style="margin-top:0;">Random Connect</h2>
+        <p style="color:var(--ink-soft); font-size:0.9rem; margin-top:-8px;">No swiping — tap the button and get paired with someone online right now, plus a conversation starter to break the ice.</p>
+
+        <div id="random-limit-banner" style="background:var(--paper-alt); border:2px solid var(--ink); border-radius:14px; padding:10px 14px; margin:16px 0; font-size:0.85rem;"></div>
+
+        <div id="random-idle">
+          <button class="btn btn-primary" id="random-find-btn" style="padding:18px 40px; font-size:1rem;">🎲 Find someone now</button>
+        </div>
+
+        <div id="random-waiting" class="hidden">
+          <div style="font-family:var(--font-display); font-size:1.3rem; margin:20px 0 8px;">LOOKING FOR SOMEONE…</div>
+          <p style="color:var(--ink-soft); font-size:0.85rem;">This can take a moment if it's quiet right now.</p>
+          <button class="btn btn-ghost" id="random-cancel-btn" style="margin-top:10px;">Cancel</button>
+        </div>
+
+        <div id="random-limit-hit" class="hidden">
+          <p style="margin:20px 0 10px;">You've used today's free random connects.</p>
+          <button class="btn btn-gold" id="random-go-premium-btn">Go Premium — unlock unlimited</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Matches tab -->
+    <section id="tab-matches" class="tab-panel hidden">
+      <h2 style="margin-top:0;">Your matches</h2>
+      <div class="matches-grid" id="matches-grid"></div>
+    </section>
+
+    <!-- Chat tab (opened from a match) -->
+    <section id="tab-chat" class="tab-panel hidden">
+      <div class="chat-wrap">
+        <div class="chat-header">
+          <button class="btn btn-ghost btn-sm" id="chat-back">← Back</button>
+          <div class="avatar"></div>
+          <div style="flex:1;">
+            <div style="font-weight:700;" id="chat-name">Name</div>
+            <div style="font-size:0.8rem; color: var(--cream-dim);" id="chat-county">County</div>
+          </div>
+          <button class="btn btn-ghost btn-sm" id="chat-report">Block / Report</button>
+        </div>
+
+        <div id="unlock-card" class="unlock-card">
+          <div id="unlock-locked">
+            <div style="font-weight:700;">🔒 Contact locked</div>
+            <div style="font-size:0.85rem; color:var(--cream-dim); margin:4px 0 10px;">
+              Pay <span id="unlock-price">KSH 50</span> via M-Pesa to unlock <span id="unlock-name-locked">their</span> phone number and Facebook.
+            </div>
+            <div class="row" style="display:flex; gap:8px;">
+              <input type="tel" id="unlock-phone" placeholder="Your M-Pesa number (07XX...)" style="flex:1;" />
+              <button class="btn btn-gold btn-sm" id="unlock-pay-btn">Pay &amp; unlock</button>
+            </div>
+            <p class="form-error" id="unlock-error"></p>
+            <p id="unlock-waiting" class="hidden" style="font-size:0.85rem; color:var(--gold); margin-top:8px;">
+              Check your phone and enter your M-Pesa PIN… waiting for confirmation.
+            </p>
+          </div>
+          <div id="unlock-unlocked" class="hidden">
+            <div style="font-weight:700; color: var(--teal);">✓ Contact unlocked</div>
+            <div style="font-size:0.9rem; margin-top:4px;">
+              📞 <span id="unlock-phone-value"></span> &nbsp;·&nbsp; 📘 <span id="unlock-fb-value"></span>
+            </div>
+          </div>
+        </div>
+        <div id="icebreaker-banner" class="hidden" style="background:var(--paper-alt); border:2px dashed var(--blue); border-radius:12px; padding:10px 14px; margin-bottom:12px; font-size:0.85rem;">
+          💬 <strong>Icebreaker:</strong> <span id="icebreaker-text"></span>
+        </div>
+        <div class="chat-log" id="chat-log"></div>
+        <div class="chat-input-row">
+          <input type="text" id="chat-input" placeholder="Type a message..." maxlength="2000" />
+          <button class="btn btn-primary" id="chat-send">Send</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Profile tab -->
+    <section id="tab-profile" class="tab-panel hidden">
+      <h2 style="margin-top:0;">Edit your profile</h2>
+      <form id="profile-edit-form" class="profile-form">
+        <div class="field-row">
+          <div class="field">
+            <label for="pe-name">Name</label>
+            <input type="text" id="pe-name" required />
+          </div>
+          <div class="field">
+            <label for="pe-age">Age</label>
+            <input type="number" id="pe-age" min="18" max="100" required />
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="pe-gender">I am a</label>
+            <select id="pe-gender">
+              <option value="woman">Woman</option>
+              <option value="man">Man</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="pe-interested">Show me</label>
+            <select id="pe-interested">
+              <option value="man">Men</option>
+              <option value="woman">Women</option>
+              <option value="everyone">Everyone</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="pe-facebook">Facebook username (required)</label>
+          <input type="text" id="pe-facebook" required />
+        </div>
+        <div class="field">
+          <label for="pe-county">County / City</label>
+          <input type="text" id="pe-county" />
+        </div>
+        <div class="field">
+          <label for="pe-bio">Bio</label>
+          <textarea id="pe-bio" maxlength="300"></textarea>
+        </div>
+        <div class="field">
+          <label for="pe-interests">Interests (comma separated)</label>
+          <input type="text" id="pe-interests" />
+        </div>
+        <p class="form-error" id="profile-edit-error"></p>
+        <p style="color: var(--teal); font-size: 0.85rem; min-height: 1em;" id="profile-edit-success"></p>
+        <button type="submit" class="btn btn-gold btn-block">Save changes</button>
+      </form>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  // Point this at your deployed Render backend URL once it's live, e.g.:
+  // window.FITI_API_BASE = "https://fiti-api.onrender.com";
+  window.FITI_API_BASE = "https://fiti-api.onrender.com"; // <-- CHANGE THIS to your real Render URL
+</script>
+<script src="js/app.js"></script>
+</body>
+</html>
